@@ -4,10 +4,10 @@
 
 set -euo pipefail
 
-# shellcheck disable=2157,2296
-if [[ -n "${{ inputs.fish-version }}" ]]; then
-  # shellcheck disable=2296
-  readonly tag="${{ inputs.fish-versionk }}"
+readonly arg="${1:-}"
+
+if [[ -n "${arg}" ]]; then
+  readonly tag="${arg}"
   if ! [[ "${tag}" =~ ^[0-9]+\.[0-9]+[.b][0-9]+$ || "${tag}" =~ ^OpenBeta_r[12]$ ]]; then
     echo "Invalid tag: ${tag}" >&2
     exit 1
