@@ -1,0 +1,27 @@
+name: install-fish-shell-from-github
+description: Installs fish shell from its GitHub releases
+
+inputs:
+  fish-version:
+    description: fish version corresponding to a release tag.
+    required: false
+    default: ""
+
+runs:
+  using: composite
+  steps:
+    - name: Install fish
+      if: runner.os == 'linux'
+      shell: bash
+      run: ./install.sh
+
+    - name: Cannnot install fish
+      if: runner.os != 'linux'
+      shell: bash
+      run: |
+        echo "Only Linux is supported." >&2
+        exit 1
+
+branding:
+  icon: download
+  color: green
