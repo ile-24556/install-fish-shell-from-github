@@ -1,0 +1,59 @@
+name: Checks
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  schedule:
+    - cron: "45 16 */3 * *"
+  workflow_dispatch:
+permissions:
+  contents: read
+defaults:
+  run:
+    shell: bash --noprofile --norc -euxo pipefail {0}
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - uses: dprint/check@9cb3a2b17a8e606d37aae341e49df3654933fc23 # v2.3
+      - name: shellcheck
+        run: |
+          # Word splitting just causes a workflow failure.
+          # shellcheck disable=2046
+          shellcheck $(git ls-files '*.sh')
+
+  test-fish-latest:
+    strategy:
+      matrix:
+        os:
+          - ubuntu-22.04
+          - ubuntu-latest
+          - ubuntu-slim
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.
+      - name: Check if fish is not installed yet
+        run: "! command -v fish"
+      - name: Run the action without input
+        uses: ./
+      - name: Check if fish is installed
+        run: fish --version
+
+  test-fish-version:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check if fish is not installed yet
+        run: "! command -v fish"
+      - name: Run the action with input
+        uses: ./
+        with:
+          fish-version: "4.3.3"
+      - name: Check if fish is installed
+        run: |
+          if [[ "$(fish --version)" != "4.3.3" ]]; then
+            exit 1
+          fi
