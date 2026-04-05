@@ -13,7 +13,7 @@ runs:
     - name: Install fish
       if: runner.os == 'linux'
       shell: bash
-      run: ./install.sh
+      run: ./install.sh "${{ inputs.fish-version }}"
 
     - name: Cannot install fish
       if: runner.os != 'linux'
