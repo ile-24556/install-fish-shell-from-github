@@ -55,6 +55,6 @@ jobs:
           fish-version: "4.3.3"
       - name: Check if fish is installed
         run: |
-          if [[ "$(fish --version)" =~ ' 4.3.3'$ ]]; then
+          if ! [[ "$(fish --version)" =~ ' 4.3.3'$ ]]; then
             exit 1
           fi
