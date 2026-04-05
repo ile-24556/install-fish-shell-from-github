@@ -1,0 +1,18 @@
+repos:
+  - repo: local
+    hooks:
+      - id: dprint-check
+        name: check format with dprint
+        entry: dprint check
+        language: unsupported
+        files: \.(json|jsonc|md|yaml|yml)$
+      - id: shellcheck
+        name: run ShellCheck
+        language: unsupported
+        entry: shellcheck
+        files: \.sh$
+      - id: actionlint
+        name: run actionlint
+        language: unsupported
+        entry: actionlint
+        files: ^\.github/workflows/.+\.yaml$
