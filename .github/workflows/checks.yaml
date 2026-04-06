@@ -39,6 +39,8 @@ jobs:
       - name: Check if fish is not installed yet
         run: "! command -v fish"
       - name: Run the action without input
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         uses: ./
       - name: Check if fish is installed
         run: fish --version
@@ -50,6 +52,8 @@ jobs:
       - name: Check if fish is not installed yet
         run: "! command -v fish"
       - name: Run the action with input
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         uses: ./
         with:
           fish-version: "4.3.3"
