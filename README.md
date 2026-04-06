@@ -11,12 +11,18 @@ The following step installs the latest version of fish:
 
 ```yaml
 - uses: ile-24556/install-fish-shell-from-github@v1.0.0
+  env:
+    GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 ```
+
+It uses GitHub CLI, so the `GH_TOKEN` environment variable is required.
 
 You can install a specific version of fish with the `fish-version` input:
 
 ```yaml
 - uses: ile-24556/install-fish-shell-from-github@v1.0.0
+  env:
+    GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   with:
     fish-version: "4.3.3"
 ```
