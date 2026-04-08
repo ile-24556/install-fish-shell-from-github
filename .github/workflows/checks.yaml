@@ -36,25 +36,35 @@ jobs:
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
-      - name: Check if fish is not installed yet
-        run: "! command -v fish"
+      - name: Check if fish tools are not installed yet
+        run: |
+          if command -v fish           ; then exit 1; fi
+          if command -v fish_indent    ; then exit 2; fi
+          if command -v fish_key_reader; then exit 3; fi
       - name: Run the action without input
         uses: ./
-      - name: Check if fish is installed
-        run: fish --version
+      - name: Check if fish tools are installed
+        run: |
+          if ! fish --version           ; then exit 1; fi
+          if ! fish_indent --version    ; then exit 2; fi
+          if ! fish_key_reader --version; then exit 3; fi
 
   test-fish-version:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
-      - name: Check if fish is not installed yet
-        run: "! command -v fish"
+      - name: Check if fish tools are not installed yet
+        run: |
+          if command -v fish; then exit 1; fi
+          if command -v fish_indent; then exit 2; fi
+          if command -v fish_key_reader; then exit 3; fi
       - name: Run the action with input
         uses: ./
         with:
           fish-version: "4.3.3"
-      - name: Check if fish is installed
+      - name: Check if the versions of fish tools are correct
         run: |
-          if ! [[ "$(fish --version)" =~ ' 4.3.3'$ ]]; then
-            exit 1
-          fi
+          expected_pattern=' 4\.3\.3$'
+          if ! [[ "$(fish --version)" =~ $expected_pattern ]]           ; then exit 1; fi
+          if ! [[ "$(fish_indent --version)" =~ $expected_pattern ]]    ; then exit 2; fi
+          if ! [[ "$(fish_key_reader --version)" =~ $expected_pattern ]]; then exit 3; fi
