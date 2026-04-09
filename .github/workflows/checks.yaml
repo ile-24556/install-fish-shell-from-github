@@ -49,7 +49,12 @@ jobs:
           if ! fish_indent --version    ; then exit 2; fi
           if ! fish_key_reader --version; then exit 3; fi
 
-  test-fish-version:
+  test-fish-versions:
+    strategy:
+      matrix:
+        version:
+          - "4.1.2"
+          - "4.6.0"
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
@@ -61,10 +66,11 @@ jobs:
       - name: Run the action with input
         uses: ./
         with:
-          fish-version: "4.3.3"
+          fish-version: ${{ matrix.version }}
       - name: Check if the versions of fish tools are correct
+        env:
+          TEST_VERSION: ${{ matrix.version }}
         run: |
-          expected_pattern=' 4\.3\.3$'
-          if ! [[ "$(fish --version)" =~ $expected_pattern ]]           ; then exit 1; fi
-          if ! [[ "$(fish_indent --version)" =~ $expected_pattern ]]    ; then exit 2; fi
-          if ! [[ "$(fish_key_reader --version)" =~ $expected_pattern ]]; then exit 3; fi
+          if ! [[ "$(fish --version)" =~ " $TEST_VERSION"$ ]]           ; then exit 1; fi
+          if ! [[ "$(fish_indent --version)" =~ " $TEST_VERSION"$ ]]    ; then exit 2; fi
+          if ! [[ "$(fish_key_reader --version)" =~ " $TEST_VERSION"$ ]]; then exit 3; fi
