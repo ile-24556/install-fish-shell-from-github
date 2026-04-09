@@ -21,7 +21,7 @@ You can install a specific version of fish with the `fish-version` input:
     fish-version: "4.3.3"
 ```
 
-The input must correspond to an existing release tag.
+The value must be '4.1.0' or later corresponding to an existing release tag.
 
 <!-- Link reference definitions -->
 

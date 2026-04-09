@@ -8,7 +8,8 @@ readonly arg="${1:-}"
 
 if [[ -n "${arg}" ]]; then
   readonly tag="${arg}"
-  if ! [[ "${tag}" =~ ^[0-9]+\.[0-9]+[.b][0-9]+$ || "${tag}" =~ ^OpenBeta_r[12]$ ]]; then
+  #                     4.1~             5.0~  10.0~
+  if ! [[ "${tag}" =~ ^(4\.[1-9][0-9]*|([5-9]|[1-9][0-9]+)\.(0|[1-9][0-9]*))\.(0|[1-9][0-9]*)$ ]]; then
     echo "Invalid tag: ${tag}" >&2
     exit 1
   fi
