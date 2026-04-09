@@ -3,7 +3,7 @@ description: Installs fish shell from its GitHub releases
 
 inputs:
   fish-version:
-    description: fish version corresponding to a release tag.
+    description: "fish version corresponding to a release tag, '4.1.0' or later."
     required: false
     default: ""
 
