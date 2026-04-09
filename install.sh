@@ -18,12 +18,13 @@ else
   readonly tag
 fi
 
-readonly url="https://github.com/fish-shell/fish-shell/releases/download/${tag}/fish-${tag}-linux-x86_64.tar.xz"
+readonly filename="fish-${tag}-linux-x86_64.tar.xz"
+curl -fsSLO "https://github.com/fish-shell/fish-shell/releases/download/${tag}/${filename}"
 
 readonly dest="${HOME}/.local/bin"
 test -d "${dest}" || mkdir -p "${dest}"
-
-curl -fsSL "${url}" | tar -xJ --directory="${dest}"
+tar -xf "${filename}" --directory="${dest}"
+rm "${filename}"
 
 # fish, fish_indent and fish_key_reader are the hard-linked same files.
 ln "${dest}/"{'fish','fish_indent'}
