@@ -12,8 +12,10 @@ runs:
   steps:
     - name: Install fish
       if: runner.os == 'linux'
+      env:
+        ACTION_FISH_VERSION: ${{ inputs.fish-version }}
       shell: bash
-      run: ./install.sh "${{ inputs.fish-version }}"
+      run: ./install.sh "${ACTION_FISH_VERSION}"
 
     - name: Cannot install fish
       if: runner.os != 'linux'
