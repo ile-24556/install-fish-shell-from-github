@@ -2,10 +2,15 @@
 
 Installs [fish shell] from [their GitHub releases][fish-releases] quickly.
 
-## Usage
+## Limitations
 
-This action is worked only on Ubuntu runner images.
-If you want to work on macOS, consider using [fish-shop/install-fish-shell].
+This action has the following limitations:
+
+- It can install fish 4.1.0 or later. The other versions are not supported.
+- It runs only on Ubuntu runner images.
+  If you want to use fish on macOS, consider using [fish-shop/install-fish-shell].
+
+## Usage
 
 The following step installs the latest version of fish:
 
@@ -21,7 +26,7 @@ You can install a specific version of fish with the `fish-version` input:
     fish-version: "4.3.3"
 ```
 
-The value must be '4.1.0' or later corresponding to an existing release tag.
+The input value must corresponds to an existing fish release tag, `4.1.0` or later.
 
 <!-- Link reference definitions -->
 
