@@ -10,13 +10,13 @@ If you want to work on macOS, consider using [fish-shop/install-fish-shell].
 The following step installs the latest version of fish:
 
 ```yaml
-- uses: ile-24556/install-fish-shell-from-github@v1.0.0
+- uses: ile-24556/install-fish-shell-from-github@v1.0.1
 ```
 
 You can install a specific version of fish with the `fish-version` input:
 
 ```yaml
-- uses: ile-24556/install-fish-shell-from-github@v1.0.0
+- uses: ile-24556/install-fish-shell-from-github@v1.0.1
   with:
     fish-version: "4.3.3"
 ```
