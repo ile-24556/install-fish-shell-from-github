@@ -1,6 +1,6 @@
 # install-fish-shell-from-github
 
-Installs [fish shell] from [its GitHub releases][fish-releases].
+Installs [fish shell] from [their GitHub releases][fish-releases] quickly.
 
 ## Usage
 
