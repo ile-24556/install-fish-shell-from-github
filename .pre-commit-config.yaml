@@ -1,11 +1,16 @@
 repos:
   - repo: local
     hooks:
+      - id: ban-yml
+        name: ban .yml file extension
+        entry: scripts/ban_some_extensions.sh
+        language: unsupported_script
+        files: \.ya?ml$
       - id: dprint-check
         name: check format with dprint
         entry: dprint check
         language: unsupported
-        files: \.(json|jsonc|md|yaml|yml)$
+        files: \.(json|jsonc|md|yaml)$
       - id: shellcheck
         name: run ShellCheck
         language: unsupported
